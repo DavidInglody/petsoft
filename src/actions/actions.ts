@@ -3,7 +3,7 @@
 import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { authSchema, petFormSchema, petIdSchema } from "@/lib/validations";
-import { signIn, signOut } from "@/lib/auth";
+import { signIn, signOut } from "@/lib/auth-no-edge";
 import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { checkAuth, getPetByPetId } from "@/lib/server-utils";
@@ -44,7 +44,6 @@ export async function logIn(prevState: unknown, formData: unknown) {
 }
 
 export async function logOut() {
-
   await signOut({ redirectTo: "/" });
 }
 
@@ -95,8 +94,6 @@ export async function signUp(prevState: unknown, formData: unknown) {
 
 // --- pet actions ---
 export async function addPet(pet: unknown) {
-
-
   const session = await checkAuth();
 
   const validatedPet = petFormSchema.safeParse(pet);
@@ -126,7 +123,6 @@ export async function addPet(pet: unknown) {
 }
 
 export async function editPet(petId: unknown, newPetData: unknown) {
-
   const session = await checkAuth();
 
   const validatedPetId = petIdSchema.safeParse(petId);
@@ -165,7 +161,6 @@ export async function editPet(petId: unknown, newPetData: unknown) {
 }
 
 export async function checkoutPet(petId: unknown) {
-
   // auth check
   const session = await checkAuth();
 
