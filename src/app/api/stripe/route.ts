@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   //   verify webhook came from Stripe
   let event;
   try {
-    event = stripe.webhooks.constructorEvent(
+    event = stripe.webhooks.constructEvent(
       body,
       signature,
       process.env.STRIPE_WEBHOOK_SECRET
